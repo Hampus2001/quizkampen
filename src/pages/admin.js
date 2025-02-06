@@ -62,7 +62,7 @@ export default function Admin() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>ControllCenter</h1>
+      <h1 className="text-7xl font-bold p-10">CONTROLL CENTER</h1>
       {displayQuestions}
     </div>
   );
