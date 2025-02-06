@@ -1,3 +1,4 @@
+import QuestionContext from "@/QuestionContext";
 import "@/styles/globals.css";
 import { Lexend } from "next/font/google";
 
@@ -9,8 +10,10 @@ const lexend = Lexend({
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={`${lexend.variable} font-sans`}>
-      <Component {...pageProps} />
-    </main>
+    <QuestionContext>
+      <main className={`${lexend.variable} font-sans`} data-theme="synthwave">
+        <Component {...pageProps} />
+      </main>
+    </QuestionContext>
   );
 }
