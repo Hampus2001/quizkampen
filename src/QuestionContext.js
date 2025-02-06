@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const HandleQuestionContext = createContext([]);
 
@@ -41,6 +41,19 @@ export default function QuestionContext({ children }) {
       answer: "10,5 miljoner",
     },
   ]);
+
+  // Read localStorage
+  useEffect(() => {
+    const savedQuestions = JSON.parse(localStorage.getItem("questions")) || [
+      ...question,
+    ];
+    setQuestion(savedQuestions);
+  }, []);
+
+  //Update localStorage
+  useEffect(() => {
+    localStorage.setItem("questions", JSON.stringify(question));
+  }, [question]);
 
   return (
     <HandleQuestionContext.Provider

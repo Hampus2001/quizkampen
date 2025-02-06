@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 
 export default function Admin() {
@@ -10,9 +10,15 @@ export default function Admin() {
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
+  useEffect(() => {
+    const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || false;
+    setLoggedIn(isLoggedIn);
+  }, []);
+
   function handleLogin() {
     if (userName === inputUsername && password === inputPassword) {
       setLoggedIn(true);
+      localStorage.setItem("isLoggedIn", JSON.stringify(true));
     } else {
       alert("Invalid login!");
     }
@@ -24,13 +30,13 @@ export default function Admin() {
     displayQuestions.push(
       <div
         key={i}
-        className="flex flex-col items-center w-2/4 gap-3 my-10 bg-white text-black rounded-xl"
+        className="flex flex-col items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 border-white bg-clip-border border-transparent"
       >
-        <h2 className="w-full p-10 text-5xl text-center font-bold bg-secondary rounded-t-xl">
+        <h2 className="w-full p-10 text-5xl text-center font-bold bg-base-300 rounded-t-xl text-white">
           Question {i + 1}
         </h2>
-        <input
-          className="bg-white text-5xl px-5 w-full text-center outline-none"
+        <textarea
+          className="bg-white text-5xl px-5 pt-10 w-full text-center outline-none"
           value={question[i].question}
           onChange={(e) => {
             const newQuestions = [...question];
@@ -39,14 +45,14 @@ export default function Admin() {
           }}
         />
 
-        <div className="flex justify-center pb-5 flex-wrap gap-10">
+        <div className="flex justify-center pb-10 px-10 flex-wrap gap-10 bg-white">
           {question[i].alternatives.map((alternative, index) => (
-            <div className="flex flex-col text-center p-5 text-2xl gap-5 bg-primary rounded-xl shadow-xl">
+            <div className="flex flex-col text-center p-5 text-2xl gap-5 bg-base-300 rounded-xl shadow-xl">
               <p className="text-start text-3xl font-bold text-white">
                 Alternative {index + 1} :{" "}
               </p>
-              <input
-                className="bg-white w-full p-2 rounded-lg  outline-none"
+              <textarea
+                className="bg-white w-full p-2 rounded-xl  outline-none"
                 key={index}
                 value={alternative}
                 onChange={(e) => {
@@ -58,10 +64,10 @@ export default function Admin() {
             </div>
           ))}
         </div>
-        <div className="flex w-full items-center justify-center gap-5 p-5 text-3xl bg-secondary rounded-b-lg">
+        <div className="flex w-full text-white items-center justify-center gap-5 p-10 text-3xl bg-base-300 rounded-b-xl">
           <p>Answer : </p>
-          <input
-            className="bg-white p-2 rounded-lg  outline-none"
+          <textarea
+            className="bg-white text-black p-2 h-14 rounded-xl outline-none"
             value={question[i].answer}
             onChange={(e) => {
               const newQuestions = [...question];
