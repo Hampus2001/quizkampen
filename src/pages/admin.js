@@ -8,30 +8,34 @@ export default function Admin() {
 
   for (let i = 0; i < question.length; i++) {
     displayQuestions.push(
-      <div key={i} className="flex flex-col w-2/4 gap-3 my-10">
-        <div className="flex flex-col gap-5">
-          <h2>Question {i + 1}</h2>
-          <input
-            className="text-white text-5xl"
-            value={question[i].question}
-            onChange={(e) => {
-              const newQuestions = [...question];
-              newQuestions[i].question = e.target.value;
-              setQuestion(newQuestions);
-            }}
-          />
-        </div>
+      <div
+        key={i}
+        className="flex flex-col items-center w-2/4 gap-3 my-10 bg-white text-black rounded-xl"
+      >
+        <h2 className="w-full p-10 text-5xl text-center font-bold bg-secondary rounded-t-xl">
+          Question {i + 1}
+        </h2>
+        <input
+          className="bg-white text-5xl px-5"
+          value={question[i].question}
+          onChange={(e) => {
+            const newQuestions = [...question];
+            newQuestions[i].question = e.target.value;
+            setQuestion(newQuestions);
+          }}
+        />
+
         <ul>
           {question[i].alternatives.map((alternative, index) => (
-            <div>
-              alternative {index + 1} :
-              <input key={index} value={alternative} />
+            <div className="flex p-5 text-xl gap-5">
+              <p>Alternative {index + 1} : </p>
+              <input className="bg-white" key={index} value={alternative} />
             </div>
           ))}
         </ul>
-        <div>
-          Answer:
-          <input className="text-white text-2xl" value={question[i].answer} />
+        <div className="flex gap-5 p-5">
+          <p>Answer : </p>
+          <input className="bg-white text-2xl" value={question[i].answer} />
         </div>
       </div>
     );
