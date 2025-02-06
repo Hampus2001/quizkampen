@@ -30,7 +30,7 @@ export default function Admin() {
     displayQuestions.push(
       <div
         key={i}
-        className="flex flex-col items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 border-white bg-clip-border border-transparent"
+        className="flex flex-col items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 bg-clip-border border-transparent"
       >
         <h2 className="w-full p-10 text-5xl text-center font-bold bg-base-300 rounded-t-xl text-white">
           Question {i + 1}
