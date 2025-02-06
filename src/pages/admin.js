@@ -32,11 +32,11 @@ export default function Admin() {
         key={i}
         className="flex flex-col items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 bg-clip-border border-transparent"
       >
-        <h2 className="w-full p-10 text-5xl text-center font-bold bg-base-300 rounded-t-xl text-white">
+        <h2 className="w-full p-10 text-7xl text-center font-bold bg-base-300 rounded-t-xl text-white">
           Question {i + 1}
         </h2>
         <textarea
-          className="bg-white text-5xl px-5 pt-10 pb-5 w-full text-center outline-none"
+          className="w-full bg-base-300 text-white text-5xl px-5 pt-10 pb-5 text-center outline-none"
           value={question[i].question}
           onChange={(e) => {
             const newQuestions = [...question];
@@ -45,9 +45,9 @@ export default function Admin() {
           }}
         />
 
-        <div className="flex justify-center pb-10 px-10 flex-wrap gap-10 bg-white">
+        <div className="flex justify-center pb-10 px-10 flex-wrap bg-base-300 gap-10 ">
           {question[i].alternatives.map((alternative, index) => (
-            <div className="flex flex-col text-center p-5 text-2xl gap-5 bg-base-300 rounded-xl shadow-xl">
+            <div className="flex flex-col text-center p-5 text-2xl gap-5 bg-base-100 border-4 border-primary rounded-xl shadow-xl">
               <p className="text-start text-3xl font-bold text-white">
                 Alternative {index + 1} :{" "}
               </p>
