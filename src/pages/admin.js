@@ -36,7 +36,7 @@ export default function Admin() {
           Question {i + 1}
         </h2>
         <textarea
-          className="bg-white text-5xl px-5 pt-10 w-full text-center outline-none"
+          className="bg-white text-5xl px-5 pt-10 pb-5 w-full text-center outline-none"
           value={question[i].question}
           onChange={(e) => {
             const newQuestions = [...question];
