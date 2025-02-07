@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function DaisyHeader() {
   return (
     <div className="fixed top-0 left-0 z-20 w-screen">
-      <div className="navbar bg-primary">
-        <div className="navbar-start">
+      <div className="navbar bg-base-300">
+        <div className="navbar-start ml-2">
           <Link href="/">
             <button className="btn btn-ghost text-xl">QuizKampen</button>
           </Link>
@@ -13,7 +13,7 @@ export default function DaisyHeader() {
         <div className="navbar-end">
           <div className="hidden lg:flex">
             <div className="menu menu-horizontal gap-x-4">
-              <ul className="flex">
+              <ul className="flex gap-x-2">
                 <li>
                   <Link href="/highscores">Scoreboard</Link>
                 </li>
@@ -23,7 +23,7 @@ export default function DaisyHeader() {
               </ul>
             </div>
           </div>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-2">
             <Link href="/admin">
               <button className="btn btn-ghost text-xl">Admin</button>
             </Link>
