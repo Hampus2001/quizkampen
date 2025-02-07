@@ -1,6 +1,6 @@
-function Footer() {
+export default function Footer() {
   return (
-    <footer className="footer footer-center bg-primary text-primary-content p-10 ">
+    <div className="footer footer-center bg-primary text-primary-content p-10 ">
       <aside>
         <svg
           width="50"
@@ -57,8 +57,6 @@ function Footer() {
           </a>
         </div>
       </nav>
-    </footer>
+    </div>
   );
 }
-
-export default Footer;
