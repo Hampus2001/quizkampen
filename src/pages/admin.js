@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
-import Footer from "../../components/Footer";
+import Footer from "./components/Footer";
+import DaisyHeader from "./components/DaisyHeader";
 import { FiSettings } from "react-icons/fi";
 import { IoMdCloseCircle } from "react-icons/io";
 
@@ -101,7 +102,7 @@ export default function Admin() {
   return (
     <>
       <div className={showModal ? "blur-lg" : ""}>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-20">
           {loggedIn ? (
             <div className="flex flex-col items-center">
               <h1 className="text-7xl font-bold pb-10 pt-20">
@@ -118,7 +119,7 @@ export default function Admin() {
                 LOG OUT
               </button>
               <button onClick={() => setShowModal(true)}>
-                <FiSettings className="text-accent fixed right-20 top-10 text-5xl hover:text-secondary" />
+                <FiSettings className="text-accent fixed right-10 top-40 text-5xl hover:text-secondary" />
               </button>
             </div>
           ) : (
@@ -156,11 +157,11 @@ export default function Admin() {
         <Footer />
       </div>
       {showModal && (
-        <div className="fixed top-10 right-20 bg-gradient-to-r from-primary to-secondary bg-clip-border border-transparent border-4 rounded-xl">
+        <div className="fixed top-40 right-0 bg-gradient-to-r from-primary to-secondary bg-clip-border border-transparent border-4 rounded-xl">
           <div className="flex flex-col bg-base-300 p-10 rounded-xl">
             <div className="flex flex-col gap-5 p-10">
               <button
-                className="btn btn-lg text-base-300 btn-accent text-5xl btn-md"
+                className="btn btn-lg text-base-300 btn-accent text-5xl"
                 onClick={() => setShowModal(false)}
               >
                 <IoMdCloseCircle />
