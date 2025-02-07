@@ -16,7 +16,10 @@ export default function Home() {
         <section className="flex flex-col justify-center space-y-4 items-center mt-4">
           <h2 className="text-2xl">Let's play!</h2>
           <CgArrowDown size={30} className="text-cyan-200 mt-4" />
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          <button
+            onClick={() => (window.location.href = "/quizJoel")}
+            className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+          >
             Start the
             <span className="bg-gradient-to-l from-blue-500 to-green-300 via-purple-300 via-blue-300 bg-clip-text text-transparent text-sm md:text-2xl sm:text-2xl">
               game
