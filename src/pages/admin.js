@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
+import Footer from "../../components/Footer";
 
 export default function Admin() {
   const { question, setQuestion } = useContext(HandleQuestionContext);
@@ -81,40 +82,52 @@ export default function Admin() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      {loggedIn ? (
-        <div className="flex flex-col items-center">
-          <h1 className="text-7xl font-bold p-10">CONTROLL CENTER</h1>
-          {displayQuestions}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center mt-60">
-          <div className="p-10 bg-primary rounded-xl">
-            <div className="flex flex-col">
-              <input
-                className="p-5 bg-white text-black text-2xl rounded-xl outline-none"
-                type="text"
-                placeholder="Username:"
-                onChange={(e) => setInputUsername(e.target.value)}
-              />
-              <br />
-              <input
-                className="p-5 bg-white text-black text-2xl rounded-xl outline-none"
-                type="password"
-                placeholder="Password:"
-                onChange={(e) => setInputPassword(e.target.value)}
-              />
-              <br />
-              <button
-                className="bg-base-300 p-5 text-2xl rounded-xl"
-                onClick={() => handleLogin()}
-              >
-                LOG IN
-              </button>
+    <>
+      <div className="flex flex-col items-center">
+        {loggedIn ? (
+          <div className="flex flex-col items-center">
+            <h1 className="text-7xl font-bold pb-10 pt-20">CONTROLL CENTER</h1>
+            {displayQuestions}
+            <button
+              className="btn btn-accent btn-lg fixed right-10 bottom-10"
+              onClick={() => {
+                setLoggedIn(false);
+                localStorage.setItem("isLoggedIn", JSON.stringify(false));
+              }}
+            >
+              LOG OUT
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center my-60">
+            <div className="p-10 bg-primary rounded-xl">
+              <div className="flex flex-col">
+                <input
+                  className="p-5 bg-white text-black text-2xl rounded-xl outline-none"
+                  type="text"
+                  placeholder="Username:"
+                  onChange={(e) => setInputUsername(e.target.value)}
+                />
+                <br />
+                <input
+                  className="p-5 bg-white text-black text-2xl rounded-xl outline-none"
+                  type="password"
+                  placeholder="Password:"
+                  onChange={(e) => setInputPassword(e.target.value)}
+                />
+                <br />
+                <button
+                  className="bg-base-300 p-5 text-2xl rounded-xl"
+                  onClick={() => handleLogin()}
+                >
+                  LOG IN
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 }
