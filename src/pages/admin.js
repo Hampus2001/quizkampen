@@ -122,9 +122,12 @@ export default function Admin() {
               </button>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center my-60">
-              <div className="p-10 bg-primary rounded-xl">
+            <div className="flex flex-col items-center justify-center my-60 bg-gradient-to-r from-primary to-secondary rounded-xl border-4 bg-clip-border border-transparent">
+              <div className="p-20 bg-base-300 rounded-xl">
                 <div className="flex flex-col">
+                  <h1 className="text-3xl font-bold text-center pb-5">
+                    Sign in
+                  </h1>
                   <input
                     className="p-5 bg-white text-black text-2xl rounded-xl outline-none"
                     type="text"
@@ -140,7 +143,7 @@ export default function Admin() {
                   />
                   <br />
                   <button
-                    className="bg-base-300 p-5 text-2xl rounded-xl"
+                    className="btn btn-lg btn-accent text-2xl rounded-xl"
                     onClick={() => handleLogin()}
                   >
                     LOG IN
@@ -154,14 +157,14 @@ export default function Admin() {
       </div>
       {showModal && (
         <div className="fixed top-10 right-20 bg-gradient-to-r from-primary to-secondary bg-clip-border border-transparent border-4 rounded-xl">
-          <div className="flex flex-col bg-base-300 rounded-xl">
-            <button
-              className="flex justify-end text-accent text-5xl px-5 pt-5"
-              onClick={() => setShowModal(false)}
-            >
-              <IoMdCloseCircle />
-            </button>
+          <div className="flex flex-col bg-base-300 p-10 rounded-xl">
             <div className="flex flex-col gap-5 p-10">
+              <button
+                className="btn btn-lg text-base-300 btn-accent text-5xl btn-md"
+                onClick={() => setShowModal(false)}
+              >
+                <IoMdCloseCircle />
+              </button>
               <input
                 type="text"
                 placeholder="Change Username"
@@ -175,7 +178,7 @@ export default function Admin() {
                 onChange={(e) => setUpdatedPassword(e.target.value)}
               />
               <button
-                className="btn btn-accent text-2xl"
+                className="btn btn-lg btn-accent text-2xl"
                 onClick={() => {
                   setUsername(updatedUsername);
                   setPassword(updatedPassword);
