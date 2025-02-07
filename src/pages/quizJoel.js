@@ -2,8 +2,9 @@ import { useContext, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 import * as motion from "motion/react-client";
 import * as Tone from "tone";
+import { Synth, PolySynth } from "tone";
 
-export default function QuizJoel() {
+export default function quizJoel() {
   const { question } = useContext(HandleQuestionContext);
 
   const myQuestion = question[0];
@@ -15,21 +16,19 @@ export default function QuizJoel() {
     "You are amazing and clever, I wish everyone could be like you...";
   const noCompliment = "You suck!";
 
-  const synth = new Tone.PolySynth().toDestination();
-  function playCorrectSynth() {
-    synth.triggerAttackRelease("C5", "8n");
-  }
-  function playWrongSynth() {
-    synth.triggerAttackRelease("B3", "8n");
-  }
+  // const synth = new Tone.PolySynth().toDestination();
+  // function playCorrectSynth() {
+  //   synth.triggerAttackRelease("C5", "8n");
+  // }
+  // function playWrongSynth() {
+  //   synth.triggerAttackRelease("B3", "8n");
+  // }
 
   function handleAlternativeClick(selectedAlternative) {
     if (selectedAlternative === myQuestion.answer) {
       setAnswerCorrect(true);
-      playCorrectSynth();
     } else {
       setAnswerCorrect(false);
-      playWrongSynth();
     }
 
     setShowAnswer(true);
