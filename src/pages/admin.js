@@ -183,6 +183,7 @@ export default function Admin() {
                 onClick={() => {
                   setUsername(updatedUsername);
                   setPassword(updatedPassword);
+                  setShowModal(false);
                 }}
               >
                 UPDATE LOGIN
