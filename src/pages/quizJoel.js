@@ -1,34 +1,69 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 import * as motion from "motion/react-client";
 import * as Tone from "tone";
-import { Synth, PolySynth } from "tone";
+
+import { SpeakerOffIcon, SpeakerLoudIcon } from "@radix-ui/react-icons";
 
 export default function quizJoel() {
   const { question } = useContext(HandleQuestionContext);
-
   const myQuestion = question[0];
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState(false);
+  const [soundOn, setSoundOn] = useState(false);
+  const [audioInitialized, setAudioInitialized] = useState(false);
+  const [synth, setSynth] = useState(null);
+  const now = Tone.now();
 
   const niceCompliment =
     "You are amazing and clever, I wish everyone could be like you...";
   const noCompliment = "You suck!";
 
-  // const synth = new Tone.PolySynth().toDestination();
-  // function playCorrectSynth() {
-  //   synth.triggerAttackRelease("C5", "8n");
-  // }
-  // function playWrongSynth() {
-  //   synth.triggerAttackRelease("B3", "8n");
-  // }
+  useEffect(() => {
+    if (audioInitialized) {
+      const synthInstance = new Tone.Synth().toDestination();
+      setSynth(synthInstance);
+
+      return () => {
+        synthInstance.dispose();
+      };
+    }
+  }, [audioInitialized]);
+
+  function soundToggleBTN() {
+    if (!audioInitialized) {
+      Tone.start();
+      setAudioInitialized(true);
+    }
+
+    setSoundOn((prevSoundState) => {
+      const newState = !prevSoundState;
+
+      if (newState && synth) {
+        synth.triggerAttackRelease("C5", "8n", now);
+        synth.triggerAttackRelease("E5", "8n", now + 0.05);
+        synth.triggerAttackRelease("G5", "8n", now + 0.1);
+      }
+
+      return newState;
+    });
+  }
 
   function handleAlternativeClick(selectedAlternative) {
+    const now = Tone.now();
     if (selectedAlternative === myQuestion.answer) {
       setAnswerCorrect(true);
+
+      synth.triggerAttackRelease("D4", "8n", now);
+      synth.triggerAttackRelease("F#4", "8n", now + 0.05);
+      synth.triggerAttackRelease("A4", "8n", now + 0.1);
     } else {
       setAnswerCorrect(false);
+
+      synth.triggerAttackRelease("E4", "8n", now);
+      synth.triggerAttackRelease("C#4", "8n", now + 0.05);
+      synth.triggerAttackRelease("B2", "8n", now + 0.1);
     }
 
     setShowAnswer(true);
@@ -40,7 +75,25 @@ export default function quizJoel() {
   }
 
   return (
-    <section id="mainJoel" className="w-screen  min-h-screen">
+    <section id="mainJoel" className="w-screen min-h-screen">
+      <label className="absolute bottom-6 left-4 z-20">
+        <input
+          type="checkbox"
+          checked={soundOn}
+          onChange={soundToggleBTN}
+          className="hidden"
+        />
+
+        <button
+          onClick={soundToggleBTN}
+          className={`btn btn-circle ${
+            soundOn ? "swap-off btn-base-300" : "swap-on btn-primary"
+          }`}
+        >
+          {soundOn ? <SpeakerLoudIcon /> : <SpeakerOffIcon />}
+        </button>
+      </label>
+
       <div className="mt-16 flex flex-col w-full h-full items-center justify-center p-16 space-x-0 space-y-8 lg:flex-row lg:space-x-16 lg:space-y-0">
         <motion.div
           className="relative w-96 h-full"
