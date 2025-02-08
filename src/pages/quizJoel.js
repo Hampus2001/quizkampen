@@ -14,15 +14,34 @@ export default function quizJoel() {
   const [soundOn, setSoundOn] = useState(false);
   const [audioInitialized, setAudioInitialized] = useState(false);
   const [synth, setSynth] = useState(null);
-  const now = Tone.now();
 
   const niceCompliment =
     "You are amazing and clever, I wish everyone could be like you...";
   const noCompliment = "You suck!";
 
   useEffect(() => {
+    if (soundOn && !audioInitialized) {
+      Tone.start().then(() => {
+        setAudioInitialized(true);
+      });
+    }
+  }, [soundOn, audioInitialized]);
+
+  useEffect(() => {
     if (audioInitialized) {
-      const synthInstance = new Tone.Synth().toDestination();
+      const freeverb = new Tone.Freeverb({
+        roomSize: 0.9,
+        dampening: 3000,
+        wet: 0.7,
+      }).toDestination();
+
+      const delay = new Tone.Delay({
+        delayTime: 0.1,
+        feedback: 0.8,
+        wet: 0.9,
+      }).toDestination();
+
+      const synthInstance = new Tone.Synth().connect(freeverb).connect(delay);
       setSynth(synthInstance);
 
       return () => {
@@ -32,20 +51,13 @@ export default function quizJoel() {
   }, [audioInitialized]);
 
   function soundToggleBTN() {
-    if (!audioInitialized) {
-      Tone.start();
-      setAudioInitialized(true);
-    }
-
     setSoundOn((prevSoundState) => {
       const newState = !prevSoundState;
-
-      if (newState && synth) {
-        synth.triggerAttackRelease("C5", "8n", now);
-        synth.triggerAttackRelease("E5", "8n", now + 0.05);
-        synth.triggerAttackRelease("G5", "8n", now + 0.1);
+      if (newState && !audioInitialized) {
+        Tone.start().then(() => {
+          setAudioInitialized(true);
+        });
       }
-
       return newState;
     });
   }
@@ -54,16 +66,18 @@ export default function quizJoel() {
     const now = Tone.now();
     if (selectedAlternative === myQuestion.answer) {
       setAnswerCorrect(true);
-
-      synth.triggerAttackRelease("D4", "8n", now);
-      synth.triggerAttackRelease("F#4", "8n", now + 0.05);
-      synth.triggerAttackRelease("A4", "8n", now + 0.1);
+      if (soundOn) {
+        synth.triggerAttackRelease("D4", "8n", now, 0.05);
+        synth.triggerAttackRelease("F#4", "8n", now + 0.05, 0.05);
+        synth.triggerAttackRelease("A4", "8n", now + 0.1, 0.05);
+      }
     } else {
       setAnswerCorrect(false);
-
-      synth.triggerAttackRelease("E4", "8n", now);
-      synth.triggerAttackRelease("C#4", "8n", now + 0.05);
-      synth.triggerAttackRelease("B2", "8n", now + 0.1);
+      if (soundOn) {
+        synth.triggerAttackRelease("E4", "8n", now, 0.05);
+        synth.triggerAttackRelease("C#4", "8n", now + 0.05, 0.05);
+        synth.triggerAttackRelease("B2", "8n", now + 0.1, 0.05);
+      }
     }
 
     setShowAnswer(true);
@@ -86,8 +100,8 @@ export default function quizJoel() {
 
         <button
           onClick={soundToggleBTN}
-          className={`btn btn-circle ${
-            soundOn ? "swap-off btn-base-300" : "swap-on btn-primary"
+          className={`btn btn-circle btn-primary ${
+            soundOn ? "swap-off" : "swap-on"
           }`}
         >
           {soundOn ? <SpeakerLoudIcon /> : <SpeakerOffIcon />}
