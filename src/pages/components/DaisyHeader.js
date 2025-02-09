@@ -20,6 +20,9 @@ export default function DaisyHeader() {
                 <li>
                   <Link href="/about">About</Link>
                 </li>
+                <li>
+                  <Link href="/quizJoel">Joel</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -57,6 +60,12 @@ export default function DaisyHeader() {
                 </li>
                 <li>
                   <Link href="/about">About</Link>
+                </li>
+                <li>
+                  <Link href="/quizJoel">Joel</Link>
+                </li>
+                <li>
+                  <Link href="/quizAli">Ali</Link>
                 </li>
               </ul>
             </div>
