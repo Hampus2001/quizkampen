@@ -21,15 +21,11 @@ export default function QuestionContext({ children }) {
       answer: "10,5 miljoner",
     },
     {
-      question: "Hur många bor i Sverige?",
-      alternatives: [
-        "8 miljoner",
-        "9,5 miljoner",
-        "10,5 miljoner",
-        "12 miljoner",
-      ],
-      answer: "10,5 miljoner",
+      question: "Vad är den kemiska symbolen för grundämnet syre?",
+      alternatives: ["A) O", "B) Ox", "C) O2", "D) Om"],
+      answer: "A) O",
     },
+
     {
       question: "Hur många bor i Sverige?",
       alternatives: [

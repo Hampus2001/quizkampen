@@ -1,10 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 import Link from "next/link";
+import * as motion from "motion/react-client";
 
 export default function AliQuiz() {
   const { question } = useContext(HandleQuestionContext);
-  const newQuestion = question[1];
+  const newQuestion = question[3];
+
+  useEffect(() => {
+    console.log(question);
+  }, [question]);
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -14,28 +19,52 @@ export default function AliQuiz() {
     setSelectedAnswer(answer);
 
     if (answer === newQuestion.answer) {
-      setCorrectAnswer(true); // Mark answer as correct
+      setCorrectAnswer(true);
     } else {
-      setCorrectAnswer(false); // Mark answer as incorrect
+      setCorrectAnswer(false);
     }
-    setShowAnswer(true); // Show the answer popup after selection
+    setShowAnswer(true);
   };
 
   const closePopup = () => {
-    setShowAnswer(false); // Close the popup
-    setSelectedAnswer(null); // Reset selected answer
-    setCorrectAnswer(null); // Reset correctness
+    setShowAnswer(false);
+    setSelectedAnswer(null);
+    setCorrectAnswer(null);
   };
 
   return (
     <div className="h-screen flex justify-center items-center p-6">
-      <div className="max-w-md w-full space-y-6">
-        {/* Question Title */}
-        <div className="text-2xl font-semibold mb-6 h-56 bg-black p-6 rounded-lg flex justify-center items-center">
-          <h1 className="text-white">{newQuestion.question}</h1>
-        </div>
+      <motion.div
+        initial={{ opacity: 0, rotate: -180 }}
+        animate={{ opacity: 1, rotate: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-md w-full space-y-6"
+      >
+        <motion.div
+          key="question"
+          initial={{ opacity: 1 }}
+          animate={{
+            opacity: showAnswer ? 0 : 1,
+            rotate: showAnswer ? 180 : 0,
+          }}
+          transition={{ duration: 0.8 }}
+          className="text-2xl font-semibold mb-6 h-56 bg-blue-950 p-6 rounded-lg flex justify-center items-center"
+        >
+          <div className="flex flex-col gap-2 ">
+            <div className="flex justify-center">
+              <img height={500} width={250} src="/assets/608.jpg"></img>
+            </div>
+            <h1 className="text-white">{newQuestion.question}</h1>
+          </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <motion.div
+          key="alternatives"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: showAnswer ? 0 : 1 }}
+          transition={{ duration: 0.8 }}
+          className="grid grid-cols-2 gap-4 w-full"
+        >
           {newQuestion.alternatives.map((alt, index) => (
             <button
               key={index}
@@ -46,16 +75,19 @@ export default function AliQuiz() {
               {alt}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Show Answer Popup */}
         {showAnswer && (
-          <div className="fixed inset-0 flex justify-center items-center z-50">
+          <motion.div
+            initial={{ opacity: 0, rotate: 180 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.8 }}
+            className="fixed inset-0 flex justify-center items-center z-50"
+          >
             <div className="flex flex-col h-[70%] w-[40%] bg-white shadow-lg rounded-lg">
-              {/* Div 1: Correct/Incorrect message */}
-              <div className="flex-1 bg-black p-6 rounded-t-lg text-center flex items-center justify-center">
+              <div className="flex-1 bg-blue-950 p-6 rounded-t-lg text-center flex items-center justify-center">
                 <h2
-                  className={`text-xl font-semibold ${
+                  className={`text-3xl font-semibold ${
                     correctAnswer ? "text-green-500" : "text-red-500"
                   }`}
                 >
@@ -65,7 +97,6 @@ export default function AliQuiz() {
                 </h2>
               </div>
 
-              {/* Div 2: Selected Answer and Correct Answer */}
               <div className="flex-1 bg-pink-500 p-6 w-full rounded-b-lg flex flex-col justify-center">
                 <p className="text-lg mb-4 text-center">
                   You selected:{" "}
@@ -92,9 +123,9 @@ export default function AliQuiz() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
