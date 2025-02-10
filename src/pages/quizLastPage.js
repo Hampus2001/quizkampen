@@ -135,7 +135,7 @@ export default function AliQuiz() {
                         JSON.stringify(updatedScores)
                       );
                     }}
-                    href="/"
+                    href="/highscores"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
                     Finish game
