@@ -8,6 +8,7 @@ const lexend = Lexend({
   variable: "--font-lexend",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export default function App({ Component, pageProps }) {

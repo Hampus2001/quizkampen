@@ -101,8 +101,11 @@ export default function quizJoel() {
   }
 
   return (
-    <section id="mainJoel" className="w-screen min-h-screen">
-      <label className="absolute bottom-6 left-4 z-20">
+    <section
+      id="mainJoel"
+      className="w-screen min-h-screen bg-[url(https://ia601205.us.archive.org/24/items/SPD-SLRSY-2046/nssdc_vg1_p21287.jpg)] bg-cover bg-no-repeat overflow-hidden"
+    >
+      <label className="absolute bottom-6 left-4">
         <input
           type="checkbox"
           checked={soundOn}
@@ -112,7 +115,7 @@ export default function quizJoel() {
 
         <button
           onClick={soundToggleBTN}
-          className={`btn btn-circle btn-primary ${
+          className={`btn btn-circle btn-primary backdrop-blur-3xl ${
             soundOn ? "swap-off" : "swap-on"
           }`}
         >
@@ -122,7 +125,7 @@ export default function quizJoel() {
 
       <div className="mt-16 flex flex-col w-full h-full items-center justify-center p-16 space-x-0 space-y-8 lg:flex-row lg:space-x-16 lg:space-y-0">
         <motion.div
-          className="relative w-96 h-full"
+          className="relative w-96 h-full z-10 backdrop-blur-xl"
           initial={false}
           animate={{
             rotateY: showAnswer ? 180 : 0,
@@ -130,21 +133,25 @@ export default function quizJoel() {
               default: { type: "spring" },
             },
           }}
-          style={{ transformStyle: "preserve-3d" }}
+          style={{
+            transformStyle: "preserve-3d",
+            perspective: "1000px", // Ensures proper 3D perspective
+          }}
         >
+          {/* Front of the card */}
           {!showAnswer && (
             <motion.div
               className="card bg-base-100 shadow-xl h-full w-full"
               style={{
                 transformStyle: "preserve-3d",
                 position: "absolute",
-                backfaceVisibility: "hidden",
+                backfaceVisibility: "hidden", // Keeps the back side hidden
               }}
             >
-              <figure className="w-full h-1/2 px-16 py-32 text-center bg-base-300">
+              <figure className="w-full h-1/2 px-16 py-32 text-center bg-base-100">
                 <h2 className="card-title">{myQuestion?.question}</h2>
               </figure>
-              <div className="card-body items-center text-center">
+              <div className="card-body bg-base-300 rounded-b-xl items-center text-center">
                 <ul className="grid grid-cols-2 grid-rows-2 gap-4 w-full">
                   {myQuestion?.alternatives.map((alternative, altIndex) => (
                     <li
@@ -160,13 +167,14 @@ export default function quizJoel() {
             </motion.div>
           )}
 
+          {/* Back of the card (after the question is answered) */}
           {showAnswer && (
             <motion.div
               className="card bg-base-100 h-full w-full"
               style={{
                 transformStyle: "preserve-3d",
                 position: "absolute",
-                backfaceVisibility: "hidden",
+                backfaceVisibility: "visible", // Make sure the backface is visible
                 rotateY: 180,
               }}
             >
@@ -182,15 +190,9 @@ export default function quizJoel() {
                 </h3>
                 <h3>{answerCorrect ? niceCompliment : noCompliment}</h3>
                 <div className="card-actions justify-end">
-                  <button
-                    onClick={restartGame}
-                    className="btn btn-secondary mt-4"
-                  >
-                    Restart Game
-                  </button>
                   <Link
                     href="/quizAli"
-                    className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
+                    className="btn-base-100 btn mt-4 text-white text-center"
                   >
                     Next Question
                   </Link>
