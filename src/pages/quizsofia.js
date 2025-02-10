@@ -117,7 +117,7 @@ export default function sofiaQuiz() {
                         return { ...prevScore, score: updatedScore };
                       });
                     }}
-                    href="/quizLastPage"
+                    href="/quizAli"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
                     Next Question
