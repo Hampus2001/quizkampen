@@ -1,12 +1,27 @@
+import { useContext, useEffect } from "react";
 import Footer from "./components/Footer";
 import { CgArrowDown } from "react-icons/cg";
+import HandleScoreContext from "@/ScoreContext";
 
 export default function Home() {
+  /* useEffect(() => {
+    localStorage.setItem(
+      "highScores",
+      JSON.stringify({ username: "", score: 0 })
+    );
+  }, []); */
+
+  const { score, setScore } = useContext(HandleScoreContext);
+  function startGame() {
+    //localStorage.setItem("highScores", JSON.stringify(score || 0));
+    console.log(score.username, score.score);
+    window.location.href = "/quizJoel";
+  }
   return (
     <>
       <div className="w-screen min-h-screen flex flex-col items-center justify-center bg-base-400 text-foreground">
         <section className="">
-          <h1 className="text-2xl font-bold sm:text-2xl md:text-4xl flex justify-center">
+          <h1 className="text-2xl text-base-content font-bold sm:text-2xl md:text-4xl flex justify-center">
             Welcome to
             <span className="bg-gradient-to-r from-blue-500 to-green-300 via-purple-300 via-blue-300 bg-clip-text text-transparent pl-2">
               QuizKampen
@@ -14,10 +29,16 @@ export default function Home() {
           </h1>
         </section>
         <section className="flex flex-col justify-center space-y-4 items-center mt-4">
-          <h2 className="text-2xl">Let's play!</h2>
+          <h2 className="text-2xl text-base-content">Let's play!</h2>
           <CgArrowDown size={30} className="text-cyan-200 mt-4" />
+          <input
+            placeholder="Username"
+            type="text"
+            className="bg-base-300 rounded-xl p-2 my-8 text-base-content"
+            // onChange={(e) => (score.username = e.target.value)}
+          />
           <button
-            onClick={() => (window.location.href = "/quizJoel")}
+            onClick={() => startGame()}
             className="btn sm:btn-sm md:btn-md lg:btn-lg bg-base-300"
           >
             Start the
