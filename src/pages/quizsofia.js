@@ -86,7 +86,7 @@ export default function sofiaQuiz() {
                 rotateY: 180,
               }}
             >
-              <figure className="w-full h-1/2 px-16 py-32 text-center bg-gradient-to-b  from-violet-700 to-pink-500 rounded-t-xl">
+              <figure className="w-full h-1/2 px-16 py-32 text-center bg-base-100 rounded-t-xl">
                 <h2 className="card-title text-2xl font-bold text-white">
                   {isAnswerCorrect ? "Correct!" : "Incorrect!"}
                 </h2>
