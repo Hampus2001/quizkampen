@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 import Footer from "./components/Footer";
-import DaisyHeader from "./components/DaisyHeader";
+
 import { FiSettings } from "react-icons/fi";
 import { IoMdCloseCircle } from "react-icons/io";
 
@@ -192,6 +192,7 @@ export default function Admin() {
           </div>
         </div>
       )}
+      <button onClick={() => console.log(question)}>logga</button>
     </>
   );
 }

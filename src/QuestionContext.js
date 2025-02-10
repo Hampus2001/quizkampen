@@ -11,14 +11,15 @@ export default function QuestionContext({ children }) {
       answer: "Jupiter",
     },
     {
-      question: "Hur många bor i Sverige?",
+      question:
+        "What is this? I have been trying to write code for hours but my cat insists on sitting on my laptop",
       alternatives: [
-        "8 miljoner",
-        "9,5 miljoner",
-        "10,5 miljoner",
-        "12 miljoner",
+        "Code Comment",
+        "Cat Meme",
+        "Developer’s Excuse",
+        "Code Interruption",
       ],
-      answer: "10,5 miljoner",
+      answer: "Cat Meme",
     },
     {
       question: "Vad är den kemiska symbolen för grundämnet syre?",
