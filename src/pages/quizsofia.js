@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
+import { HandleScoreContext } from "@/ScoreContext";
 import * as motion from "motion/react-client";
+import Link from "next/link";
 
 export default function sofiaQuiz() {
   const { question } = useContext(HandleQuestionContext);
+  const { score, setScore } = useContext(HandleScoreContext);
   const currentQuestionData = question[1];
 
   const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
@@ -24,7 +27,10 @@ export default function sofiaQuiz() {
   };
 
   return (
-    <section id="quiz-section" className="w-screen min-h-screen ">
+    <section
+      id="quiz-section"
+      className=" w-screen min-h-screen bg-[url(/assets/cat2.jpeg)] bg-cover bg-center overflow-hidden"
+    >
       <div className="mt-16 flex flex-col w-full h-full items-center justify-center p-16 space-x-0 space-y-8 lg:flex-row lg:space-x-16 lg:space-y-0">
         <motion.div
           className="relative w-96 h-full"
@@ -37,25 +43,25 @@ export default function sofiaQuiz() {
         >
           {!isAnswerRevealed && (
             <motion.div
-              className="card bg-white shadow-xl rounded-xl h-full w-full transform transition-all duration-500"
+              className="card z-10 bg-white shadow-xl rounded-xl h-full w-full transform transition-all duration-500 backdrop-blur-3xl"
               style={{
                 transformStyle: "preserve-3d",
                 position: "absolute",
                 backfaceVisibility: "hidden",
               }}
             >
-              <figure className="w-full h-1/2 px-16 py-32 text-center bg-gradient-to-b from-pink-400 to-violet-700 rounded-t-xl">
-                <img
+              <figure className="w-full h-1/2 px-16 py-32 text-center bg-base-100  rounded-t-xl">
+                {/* <img
                   src="/assets/cat2.jpeg"
                   alt="Cat Image"
                   className="absolute top-0 left-0 w-full h-32 object-cover object-fit rounded-t-xl"
-                />
+                /> */}
 
-                <h2 className="card-title mt-20 text-2xl font-bold text-white">
+                <h2 className="card-title text-2xl font-bold text-white">
                   {currentQuestionData?.question}
                 </h2>
               </figure>
-              <div className="card-body items-center bg-violet-700 rounded-b-lg text-center">
+              <div className="card-body items-center bg-base-300 rounded-b-lg text-center">
                 <ul className="grid grid-cols-2 gap-4 w-full">
                   {currentQuestionData?.alternatives.map((choice, index) => (
                     <li
@@ -103,6 +109,19 @@ export default function sofiaQuiz() {
                   >
                     Try again!
                   </button>
+                  <Link
+                    onClick={() => {
+                      setScore((prevScore) => {
+                        const updatedScore = prevScore.score + 1;
+                        console.log(updatedScore);
+                        return { ...prevScore, score: updatedScore };
+                      });
+                    }}
+                    href="/quizLastPage"
+                    className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
+                  >
+                    Next Question
+                  </Link>
                 </div>
               </div>
             </motion.div>

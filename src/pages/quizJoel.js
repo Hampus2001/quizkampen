@@ -1,12 +1,15 @@
 import { useContext, useState, useEffect } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
+import { HandleScoreContext } from "@/ScoreContext";
 import * as motion from "motion/react-client";
 import * as Tone from "tone";
+import Link from "next/link";
 
 import { SpeakerOffIcon, SpeakerLoudIcon } from "@radix-ui/react-icons";
 
 export default function quizJoel() {
   const { question } = useContext(HandleQuestionContext);
+  const { score, setScore } = useContext(HandleScoreContext);
   const myQuestion = question[0];
 
   const [showAnswer, setShowAnswer] = useState(false);
@@ -18,6 +21,10 @@ export default function quizJoel() {
   const niceCompliment =
     "You are amazing and clever, I wish everyone could be like you...";
   const noCompliment = "You suck!";
+
+  useEffect(() => {
+    console.log(score.username, score.score);
+  }, []);
 
   useEffect(() => {
     if (soundOn && !audioInitialized) {
@@ -66,6 +73,11 @@ export default function quizJoel() {
     const now = Tone.now();
     if (selectedAlternative === myQuestion.answer) {
       setAnswerCorrect(true);
+      setScore((prevScore) => {
+        const updatedScore = prevScore.score + 1;
+        return { ...prevScore, score: updatedScore };
+      });
+
       if (soundOn) {
         synth.triggerAttackRelease("D4", "8n", now, 0.05);
         synth.triggerAttackRelease("F#4", "8n", now + 0.05, 0.05);
@@ -176,6 +188,12 @@ export default function quizJoel() {
                   >
                     Restart Game
                   </button>
+                  <Link
+                    href="/quizAli"
+                    className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
+                  >
+                    Next Question
+                  </Link>
                 </div>
               </div>
             </motion.div>
