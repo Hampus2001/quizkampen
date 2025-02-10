@@ -49,7 +49,7 @@ export default function Admin() {
     displayQuestions.push(
       <div
         key={i}
-        className="flex flex-col items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 bg-clip-border border-transparent"
+        className="flex flex-col w-2/3 items-center m-10 bg-gradient-to-r from-primary to-secondary text-black rounded-xl border-8 bg-clip-border border-transparent"
       >
         <h2 className="w-full p-10 text-7xl text-center font-bold bg-base-300 rounded-t-xl text-white">
           Question {i + 1}
@@ -64,14 +64,14 @@ export default function Admin() {
           }}
         />
 
-        <div className="flex justify-center pb-10 px-10 flex-wrap bg-base-300 gap-10 ">
+        <div className="flex justify-center pb-10 pt-5 px-10 flex-wrap bg-base-300 gap-10 ">
           {question[i].alternatives.map((alternative, index) => (
             <div className="flex flex-col text-center p-5 text-2xl gap-5 bg-base-100 border-4 border-primary rounded-xl shadow-xl">
               <p className="text-start text-3xl font-bold text-white">
                 Alternative {index + 1} :{" "}
               </p>
               <textarea
-                className="bg-white w-full p-2 rounded-xl  outline-none"
+                className="bg-white w-full p-2 rounded-xl text-center outline-none"
                 key={index}
                 value={alternative}
                 onChange={(e) => {
@@ -109,18 +109,20 @@ export default function Admin() {
                 CONTROLL CENTER
               </h1>
               {displayQuestions}
-              <button
-                className="btn btn-accent btn-lg fixed right-10 bottom-10"
-                onClick={() => {
-                  setLoggedIn(false);
-                  localStorage.setItem("isLoggedIn", JSON.stringify(false));
-                }}
-              >
-                LOG OUT
-              </button>
-              <button onClick={() => setShowModal(true)}>
-                <FiSettings className="text-accent fixed right-10 top-40 text-5xl hover:text-secondary" />
-              </button>
+              <div className="sm:flex items-center justify-center gap-5 lg:fixed lg:right-10 lg:bottom-10">
+                <button onClick={() => setShowModal(true)}>
+                  <FiSettings className="text-accent  text-5xl hover:text-secondary" />
+                </button>
+                <button
+                  className="btn btn-accent btn-lg "
+                  onClick={() => {
+                    setLoggedIn(false);
+                    localStorage.setItem("isLoggedIn", JSON.stringify(false));
+                  }}
+                >
+                  LOG OUT
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center my-60 bg-gradient-to-r from-primary to-secondary rounded-xl border-4 bg-clip-border border-transparent">
@@ -157,7 +159,7 @@ export default function Admin() {
         <Footer />
       </div>
       {showModal && (
-        <div className="fixed top-40 right-0 bg-gradient-to-r from-primary to-secondary bg-clip-border border-transparent border-4 rounded-xl">
+        <div className="fixed bottom-5 right-0 bg-gradient-to-r from-primary to-secondary bg-clip-border border-transparent border-4 rounded-xl">
           <div className="flex flex-col bg-base-300 p-10 rounded-xl">
             <div className="flex flex-col gap-5 p-10">
               <button
@@ -192,7 +194,6 @@ export default function Admin() {
           </div>
         </div>
       )}
-      <button onClick={() => console.log(question)}>logga</button>
     </>
   );
 }
