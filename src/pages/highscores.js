@@ -25,7 +25,7 @@ export default function Scores() {
             ))}
           </ul>
         )}
-        <Link href="/quiz" className="btn btn-primary mt-4">
+        <Link href="/" className="btn btn-primary mt-4">
           Play again!
         </Link>
       </div>

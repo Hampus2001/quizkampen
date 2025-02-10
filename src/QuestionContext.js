@@ -28,14 +28,9 @@ export default function QuestionContext({ children }) {
     },
 
     {
-      question: "Hur många bor i Sverige?",
-      alternatives: [
-        "8 miljoner",
-        "9,5 miljoner",
-        "10,5 miljoner",
-        "12 miljoner",
-      ],
-      answer: "10,5 miljoner",
+      question: "När uppfanns bilbältet?",
+      alternatives: ["1970", "1964", "1959", "1955"],
+      answer: "1959",
     },
   ]);
 
