@@ -191,7 +191,7 @@ export default function quizJoel() {
                 <h3>{answerCorrect ? niceCompliment : noCompliment}</h3>
                 <div className="card-actions justify-end">
                   <Link
-                    href="/quizAli"
+                    href="/quizsofia"
                     className="btn-base-100 btn mt-4 text-white text-center"
                   >
                     Next Question

@@ -113,7 +113,7 @@ export default function AliQuiz() {
                         setScore((prevScore) => ({ ...prevScore, score: 0 }));
                       }
                     }}
-                    href="/quizsofia"
+                    href="/quizLastPage"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
                     Next Question
