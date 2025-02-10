@@ -54,15 +54,20 @@ export default function Admin() {
         <h2 className="w-full p-10 text-7xl text-center font-bold bg-base-300 rounded-t-xl text-white">
           Question {i + 1}
         </h2>
-        <textarea
-          className="w-full bg-base-300 text-white text-5xl px-5 pt-10 pb-5 text-center outline-none"
-          value={question[i].question}
-          onChange={(e) => {
-            const newQuestions = [...question];
-            newQuestions[i] = { ...newQuestions[i], question: e.target.value };
-            setQuestion(newQuestions);
-          }}
-        />
+        <div className="bg-base-300 w-full px-10">
+          <textarea
+            className="w-full bg-base-300 text-white text-5xl px-5 pt-10 pb-5 text-center outline-none"
+            value={question[i].question}
+            onChange={(e) => {
+              const newQuestions = [...question];
+              newQuestions[i] = {
+                ...newQuestions[i],
+                question: e.target.value,
+              };
+              setQuestion(newQuestions);
+            }}
+          />
+        </div>
 
         <div className="flex justify-center pb-10 pt-5 px-10 flex-wrap bg-base-300 gap-10 ">
           {question[i].alternatives.map((alternative, index) => (
