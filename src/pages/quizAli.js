@@ -48,9 +48,9 @@ export default function AliQuiz() {
             rotate: showAnswer ? 180 : 0,
           }}
           transition={{ duration: 0.8 }}
-          className="text-2xl font-semibold mb-6 h-56 bg-blue-950 p-6 rounded-lg flex justify-center items-center"
+          className="text-2xl font-semibold mb-6 h-56 bg-base-300 p-6 rounded-lg flex justify-center items-center"
         >
-          <div className="flex flex-col gap-2 ">
+          <div className="flex flex-col gap-2">
             <div className="flex justify-center">
               <img height={500} width={250} src="/assets/608.jpg"></img>
             </div>
