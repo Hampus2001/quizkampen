@@ -92,8 +92,8 @@ export default function AliQuiz() {
                   }`}
                 >
                   {correctAnswer
-                    ? "You are Correct"
-                    : "Unfortunately, it is wrong"}
+                    ? "You got it! I might need to start taking notes from you!"
+                    : "Wrong answer! You might want to try Googling it next time...😉"}
                 </h2>
               </div>
 
