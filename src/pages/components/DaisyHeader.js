@@ -23,9 +23,6 @@ export default function DaisyHeader() {
                 <li>
                   <Link href="/quizJoel">Joel</Link>
                 </li>
-                <li>
-                  <Link href="/quizAli">Ali</Link>
-                </li>
               </ul>
             </div>
           </div>
