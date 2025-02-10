@@ -82,7 +82,7 @@ export default function AliQuiz() {
             initial={{ opacity: 0, rotate: 180 }}
             animate={{ opacity: 1, rotate: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed inset-0 flex justify-center items-center z-50"
+            className="fixed inset-0 flex justify-center items-center"
           >
             <div className="flex flex-col h-[70%] w-[40%] bg-white shadow-lg rounded-lg">
               <div className="flex-1 bg-blue-950 p-6 rounded-t-lg text-center flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function AliQuiz() {
                     Close
                   </button>
                   <Link
-                    href="/"
+                    href="/quizsofia"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
                     Next Question
