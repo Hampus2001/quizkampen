@@ -73,6 +73,11 @@ export default function quizJoel() {
     const now = Tone.now();
     if (selectedAlternative === myQuestion.answer) {
       setAnswerCorrect(true);
+      setScore((prevScore) => {
+        const updatedScore = prevScore.score + 1;
+        return { ...prevScore, score: updatedScore };
+      });
+
       if (soundOn) {
         synth.triggerAttackRelease("D4", "8n", now, 0.05);
         synth.triggerAttackRelease("F#4", "8n", now + 0.05, 0.05);
@@ -184,13 +189,6 @@ export default function quizJoel() {
                     Restart Game
                   </button>
                   <Link
-                    onClick={() => {
-                      setScore((prevScore) => {
-                        const updatedScore = prevScore.score + 1;
-                        console.log(updatedScore);
-                        return { ...prevScore, score: updatedScore };
-                      });
-                    }}
                     href="/quizAli"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
