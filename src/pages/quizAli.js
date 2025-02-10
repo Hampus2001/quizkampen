@@ -5,7 +5,7 @@ import * as motion from "motion/react-client";
 
 export default function AliQuiz() {
   const { question } = useContext(HandleQuestionContext);
-  const newQuestion = question[3];
+  const newQuestion = question[2];
 
   useEffect(() => {
     console.log(question);
