@@ -30,68 +30,63 @@ export default function AliQuiz() {
     setCorrectAnswer(null);
   };
 
+  useEffect(() => {
+    console.log(score.username, score.score);
+  }, []);
+
   return (
-    <div className="h-screen flex justify-center items-center p-6">
+    <div className="h-screen flex justify-center items-center p-6 bg-[url(/assets/608.jpg)] bg-cover bg-center">
       <motion.div
-        initial={{ opacity: 0, rotate: -180 }}
-        animate={{ opacity: 1, rotate: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
         className="max-w-md w-full space-y-6"
       >
         <motion.div
-          key="question"
-          initial={{ opacity: 1 }}
+          key="question-and-alternatives"
+          initial={{ opacity: 0, y: 100 }}
           animate={{
             opacity: showAnswer ? 0 : 1,
-            rotate: showAnswer ? 180 : 0,
+            y: showAnswer ? -100 : 0,
           }}
-          transition={{ duration: 0.8 }}
-          className="text-2xl font-semibold mb-6 h-56 bg-base-300 p-6 rounded-lg flex justify-center items-center"
+          transition={{ duration: 0.1 }}
+          className="bg-base-100 p-6 rounded-lg space-y-4"
         >
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-center">
-              <img height={500} width={250} src="/assets/608.jpg"></img>
-            </div>
-            <h1 className="text-white">{newQuestion.question}</h1>
+          <div className="text-2xl font-semibold h-56 flex justify-center items-center">
+            <h1 className="text-white text-center">{newQuestion.question}</h1>
           </div>
-        </motion.div>
 
-        <motion.div
-          key="alternatives"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: showAnswer ? 0 : 1 }}
-          transition={{ duration: 0.8 }}
-          className="grid grid-cols-2 gap-4 w-full"
-        >
-          {newQuestion.alternatives.map((alt, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswerSelection(alt)}
-              className="text-black p-8 bg-pink-500 rounded-md shadow-md hover:bg-pink-600"
-              disabled={showAnswer}
-            >
-              {alt}
-            </button>
-          ))}
+          <div className="grid grid-cols-2 gap-4 w-full">
+            {newQuestion.alternatives.map((alt, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelection(alt)}
+                className="text-black p-8 bg-pink-500 rounded-md shadow-md hover:bg-pink-600"
+                disabled={showAnswer}
+              >
+                {alt}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {showAnswer && (
           <motion.div
-            initial={{ opacity: 0, rotate: 180 }}
-            animate={{ opacity: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             className="fixed inset-0 flex justify-center items-center"
           >
-            <div className="flex flex-col h-[70%] w-[40%] bg-white shadow-lg rounded-lg">
-              <div className="flex-1 bg-blue-950 p-6 rounded-t-lg text-center flex items-center justify-center">
+            <div className="flex flex-col h-[70%] w-[30%] bg-white shadow-lg rounded-lg">
+              <div className="flex-1 bg-base-300 p-6 rounded-t-lg text-center flex items-center justify-center">
                 <h2
                   className={`text-3xl font-semibold ${
                     correctAnswer ? "text-green-500" : "text-red-500"
                   }`}
                 >
                   {correctAnswer
-                    ? "You got it! I might need to start taking notes from you!"
-                    : "Wrong answer! You might want to try Googling it next time...😉"}
+                    ? "Wow, you're on fire! Maybe you should quit your day job and become a quiz master!"
+                    : "Yikes, wrong answer! It’s okay, we’ll just pretend that didn’t happen!"}
                 </h2>
               </div>
 
@@ -105,37 +100,20 @@ export default function AliQuiz() {
                   <span className="font-semibold">{newQuestion.answer}</span>
                 </p>
 
-                <div className="flex justify-between mt-4">
-                  <button
-                    onClick={() => {
-                      closePopup;
-                    }}
-                    className="mt-4 w-40 py-2 bg-blue-500 text-white rounded-lg"
-                  >
-                    Close
-                  </button>
+                <div className="flex justify-center mt-4">
                   <Link
                     onClick={() => {
-                      const newScore = { ...score, score: score.score + 1 };
-
-                      setScore((prevScore) => ({
-                        ...prevScore,
-                        score: newScore,
-                      }));
-                      console.log(newScore);
-                      const storedScores =
-                        JSON.parse(localStorage.getItem("quizHighScores")) ||
-                        [];
-
-                      const updatedScores = [...storedScores, newScore].sort(
-                        (a, b) => b.score - a.score
-                      );
-                      localStorage.setItem(
-                        "quizHighScores",
-                        JSON.stringify(updatedScores)
-                      );
+                      if (correctAnswer) {
+                        setScore((prevScore) => {
+                          const updatedScore = prevScore.score + 1;
+                          console.log(updatedScore);
+                          return { ...prevScore, score: updatedScore };
+                        });
+                      } else {
+                        setScore((prevScore) => ({ ...prevScore, score: 0 }));
+                      }
                     }}
-                    href="/"
+                    href="/highscores"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
                     Finish game
