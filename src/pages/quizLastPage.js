@@ -7,7 +7,7 @@ import * as motion from "motion/react-client";
 export default function AliQuiz() {
   const { question } = useContext(HandleQuestionContext);
   const { score, setScore } = useContext(HandleScoreContext);
-  const newQuestion = question[2];
+  const newQuestion = question[3];
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -29,10 +29,6 @@ export default function AliQuiz() {
     setSelectedAnswer(null);
     setCorrectAnswer(null);
   };
-
-  useEffect(() => {
-    console.log(score.username, score.score);
-  }, []);
 
   return (
     <div className="h-screen flex justify-center items-center p-6">
@@ -120,16 +116,29 @@ export default function AliQuiz() {
                   </button>
                   <Link
                     onClick={() => {
-                      setScore((prevScore) => {
-                        const updatedScore = prevScore.score + 1;
-                        console.log(updatedScore);
-                        return { ...prevScore, score: updatedScore };
-                      });
+                      const newScore = { ...score, score: score.score + 1 };
+
+                      setScore((prevScore) => ({
+                        ...prevScore,
+                        score: newScore,
+                      }));
+                      console.log(newScore);
+                      const storedScores =
+                        JSON.parse(localStorage.getItem("quizHighScores")) ||
+                        [];
+
+                      const updatedScores = [...storedScores, newScore].sort(
+                        (a, b) => b.score - a.score
+                      );
+                      localStorage.setItem(
+                        "quizHighScores",
+                        JSON.stringify(updatedScores)
+                      );
                     }}
-                    href="/quizsofia"
+                    href="/"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
                   >
-                    Next Question
+                    Finish game
                   </Link>
                 </div>
               </div>

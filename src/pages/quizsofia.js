@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
+import { HandleScoreContext } from "@/ScoreContext";
 import * as motion from "motion/react-client";
+import Link from "next/link";
 
 export default function sofiaQuiz() {
   const { question } = useContext(HandleQuestionContext);
+  const { score, setScore } = useContext(HandleScoreContext);
   const currentQuestionData = question[1];
 
   const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
@@ -106,6 +109,19 @@ export default function sofiaQuiz() {
                   >
                     Try again!
                   </button>
+                  <Link
+                    onClick={() => {
+                      setScore((prevScore) => {
+                        const updatedScore = prevScore.score + 1;
+                        console.log(updatedScore);
+                        return { ...prevScore, score: updatedScore };
+                      });
+                    }}
+                    href="/quizLastPage"
+                    className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
+                  >
+                    Next Question
+                  </Link>
                 </div>
               </div>
             </motion.div>
