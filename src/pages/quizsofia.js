@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { HandleQuestionContext } from "@/QuestionContext";
 import { HandleScoreContext } from "@/ScoreContext";
 import * as motion from "motion/react-client";
@@ -21,10 +21,15 @@ export default function sofiaQuiz() {
     setIsAnswerRevealed(true);
   };
 
-  const resetQuiz = () => {
-    setIsAnswerRevealed(false);
-    setIsAnswerCorrect(false);
-  };
+  useEffect(() => {
+    console.log(score.username, score.score);
+  }, []);
+
+  // Option to go back to the question
+  //   const resetQuiz = () => {
+  //     setIsAnswerRevealed(false);
+  //     setIsAnswerCorrect(false);
+  //   };
 
   return (
     <section
@@ -51,12 +56,6 @@ export default function sofiaQuiz() {
               }}
             >
               <figure className="w-full h-1/2 px-16 py-32 text-center bg-base-100  rounded-t-xl">
-                {/* <img
-                  src="/assets/cat2.jpeg"
-                  alt="Cat Image"
-                  className="absolute top-0 left-0 w-full h-32 object-cover object-fit rounded-t-xl"
-                /> */}
-
                 <h2 className="card-title text-2xl font-bold text-white">
                   {currentQuestionData?.question}
                 </h2>
@@ -103,19 +102,23 @@ export default function sofiaQuiz() {
                   {isAnswerCorrect ? correctResponse : incorrectResponse}
                 </h3>
                 <div className="card-actions justify-end">
-                  <button
+                  {/* Takes you back to the current question */}
+                  {/* <button
                     onClick={resetQuiz}
                     className="btn btn-secondary mt-4 bg-yellow-500 text-black rounded-xl hover:bg-yellow-400"
                   >
-                    Try again!
-                  </button>
+                    Try again!  
+                  </button> */}
+
                   <Link
                     onClick={() => {
-                      setScore((prevScore) => {
-                        const updatedScore = prevScore.score + 1;
-                        console.log(updatedScore);
-                        return { ...prevScore, score: updatedScore };
-                      });
+                      if (isAnswerCorrect) {
+                        // Check if the answer is correct before updating score
+                        setScore((prevScore) => {
+                          const updatedScore = prevScore.score + 1;
+                          return { ...prevScore, score: updatedScore };
+                        });
+                      }
                     }}
                     href="/quizAli"
                     className="mt-4 w-40 py-2 bg-blue-500 text-white text-center rounded-lg"
