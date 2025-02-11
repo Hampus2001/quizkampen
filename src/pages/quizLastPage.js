@@ -106,11 +106,30 @@ export default function AliQuiz() {
                       if (correctAnswer) {
                         setScore((prevScore) => {
                           const updatedScore = prevScore.score + 1;
-                          console.log(updatedScore);
-                          return { ...prevScore, score: updatedScore };
+                          score.score = updatedScore;
                         });
+
+                        const storedScores =
+                          JSON.parse(localStorage.getItem("quizHighScores")) ||
+                          [];
+                        const updatedScores = [...storedScores, score].sort(
+                          (a, b) => b.score - a.score
+                        );
+                        localStorage.setItem(
+                          "quizHighScores",
+                          JSON.stringify(updatedScores)
+                        );
                       } else {
-                        setScore((prevScore) => ({ ...prevScore, score: 0 }));
+                        const storedScores =
+                          JSON.parse(localStorage.getItem("quizHighScores")) ||
+                          [];
+                        const updatedScores = [...storedScores, score].sort(
+                          (a, b) => b.score - a.score
+                        );
+                        localStorage.setItem(
+                          "quizHighScores",
+                          JSON.stringify(updatedScores)
+                        );
                       }
                     }}
                     href="/highscores"

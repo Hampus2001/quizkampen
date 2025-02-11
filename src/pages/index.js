@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import Footer from "./components/Footer";
 import { HandleScoreContext } from "@/ScoreContext";
+import Link from "next/link";
 
 export default function Home() {
   useEffect(() => {
@@ -38,12 +39,9 @@ export default function Home() {
             }}
           />
 
-          <button
-            className="btn btn-wide  bg-blue-500"
-            onClick={() => (window.location.href = "/quizJoel")}
-          >
+          <Link className="btn btn-wide  bg-blue-500" href={"/quizJoel"}>
             <p className="text-lg px-8 ">Start Game</p>
-          </button>
+          </Link>
         </section>
       </div>
       <Footer />

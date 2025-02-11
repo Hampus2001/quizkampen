@@ -109,8 +109,6 @@ export default function AliQuiz() {
                           console.log(updatedScore);
                           return { ...prevScore, score: updatedScore };
                         });
-                      } else {
-                        setScore((prevScore) => ({ ...prevScore, score: 0 }));
                       }
                     }}
                     href="/quizLastPage"

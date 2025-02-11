@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-export const HandleScoreContext = createContext({});
+export const HandleScoreContext = createContext([]);
 export default function ScoreContext({ children }) {
   const [score, setScore] = useState({ username: "", score: 0 });
   function addScore() {
